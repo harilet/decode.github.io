@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.rawgit.com/CryptoStore/crypto-js/3.1.2/build/rollups/tripledes.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decode</title>
+</head>
+<body>
+    <div>
+        <input type="radio" name="size" value="XS" id="xs">
+        <label for="xs">ENCODE</label>
+    </div>
+    <div>
+        <input type="radio" name="size" value="S" id="s">
+        <label for="s">DECODE</label>
+    </div>
+    TEXT<input><br>
+    KEY<input><br>
+    <button onclick="process()">ENCODE/DECODE</button><br>
+    DES<input><br>
+    AES<input><br>
+    IDEA<input><br>
+    RC4<input><br>
+    RC5	<input><br>
+</body>
+
+<script>
+function process(){
+    function decryptDesCbcPkcs7Padding(message, key) {
+        var keyWords = CryptoJS.enc.Utf8.parse(key);
+        var ivWords = CryptoJS.lib.WordArray.create([0, 0]);
+
+        var decrypted = CryptoJS.DES.decrypt({ciphertext: message}, keyWords, { iv: ivWords });
+
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+
+    var base64Decoded = CryptoJS.enc.Base64.parse(finalEncrypted);
+    console.log("Base64 decoded", base64Decoded);
+
+    var decrypted = decryptDesCbcPkcs7Padding(base64Decoded, "12345678");
+    console.log("Decrypted: ", decrypted);
+}
+</script>
+</html>
